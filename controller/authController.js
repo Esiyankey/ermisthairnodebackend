@@ -1,22 +1,22 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require("bcrypt")
 const user = require("../db/models/user")
+const catchAsync = require('../utils/catchAsync')
+const AppError = require('../utils/appError')
 
 const generateToken =(payload)=>{
     return jwt.sign(payload,process.env.JWTSECRETKEY,{
         expiresIn:process.env.JWTEXPIRESIN
     })
 }
-const signup = async (req,res,next)=>{
+const signup = catchAsync (async (req,res,next)=>{
     const body = req.body;
 
 
 
     if(!['1','2'].includes(body.userType)){
-        return res.status(400).json({
-            status:'fail',
-            message:'Invalid user Type',
-        });
+        throw new AppError("Invalid User Type",400)
+      
     }
     const newUser = await user.create({
         userType:body.userType,
@@ -38,10 +38,7 @@ const signup = async (req,res,next)=>{
 
 
     if(!newUser) {
-        return res.status(400).json({
-            status:'fail',
-            message:'failed to create user',
-        });
+       return next(new AppError("User not found",400)) 
     }
 
     return res.status(201).json({
@@ -49,7 +46,7 @@ const signup = async (req,res,next)=>{
         data:result
     })
 
-}
+})
 
 const login = async (req,res,next)=>{
     const {email,password}= req.body
