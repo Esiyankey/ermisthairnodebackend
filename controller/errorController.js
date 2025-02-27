@@ -36,11 +36,13 @@ const sendErrorProd = (error, res) => {
 };
 
 const globalErrorHandler = (err, req, res, next) => {
-  let error = "";
-
-  if (err.code === 5001) {
-    error = new AppError();
+  if (err.name === "SequelizeValidationError"){
+    err = new AppError(err.errors[0].message, 400)
   }
+  if (err.name === "SequelizeUniqueConstraintError"){
+    err = new AppError(err.errors[0].message, 400)
+  }
+ 
   if (process.env.NODE_ENV === "development") {
     return sendErrorDev(err, res);
   }

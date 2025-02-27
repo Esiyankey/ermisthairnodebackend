@@ -2,6 +2,7 @@
 const {Model,Sequelize, DataTypes} = require('sequelize');
 const bcrypt = require("bcrypt")
 const sequelize = require('../../config/database');
+const AppError = require('../../utils/appError');
 
 
 
@@ -17,18 +18,57 @@ const user = sequelize.define('Users',
     userType: {
       type: DataTypes.ENUM('0', '1', '2'), // Define allowed values
       allowNull: false,
+      validate:{
+        notNull:{
+          msg:"userType cannot be null",
+        },
+        notEmpty:{
+          msg:"userType cannot be empty"
+        }
+      }
     },
     userName: {
-      type: DataTypes.STRING
+      type: Sequelize.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"userName cannot be null",
+        },
+        notEmpty:{
+          msg:"userName cannot be empty"
+        }
+      }
     },
     email: {
-      type: DataTypes.STRING
+      type: Sequelize.STRING,
+      unique:true,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"email cannot be null",
+        },
+        notEmpty:{
+          msg:"email cannot be empty"
+        },
+        isEmail:{
+          msg:"inavlid email id "
+        }
+      }
     },
     password: {
-      type: DataTypes.STRING
+      type: Sequelize.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"password cannot be null",
+        },
+        notEmpty:{
+          msg:"password cannot be empty"
+        }
+      }
     },
     confirmPassword:{
-      type:DataTypes.VIRTUAL,
+      type:Sequelize.VIRTUAL,
       set(value){
         if(value === this.password)
         {
