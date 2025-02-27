@@ -52,20 +52,14 @@ const login = async (req,res,next)=>{
     const {email,password}= req.body
 
     if (!email|| !password){
-       return res.status(400).json({
-            status:"fail",
-            message:"please provide email and password"
-        })
+       return next(new AppError('please provide email and password',400));
     }
 
 
     const result =await user.findOne({where:{email}});
     const isPasswordMatch = await bcrypt.compare(password,result.password)
     if (!result || !isPasswordMatch){
-        return res.status(401).json({
-            status:"failure",
-            message:"wrong email or password "
-        })
+        return next(new AppError('Incorrect email or password',401));
     }
 
 

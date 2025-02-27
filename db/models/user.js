@@ -36,8 +36,8 @@ const user = sequelize.define('Users',
           this.setDataValue('password',hashPassword)
         }
         else{
-          throw new Error(
-            "password and confirm password does not match." 
+          throw new AppError(
+            "password and confirm password does not match." ,400
           )
         }
       }

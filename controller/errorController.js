@@ -20,12 +20,18 @@ const sendErrorProd = (error, res) => {
   const stack = error.stack;
 
   if (error.isOperational) {
-    res.status(statusCode).json({
+   return res.status(statusCode).json({
       status,
       message,
-      stack,
     });
   }
+
+  console.log(error.name,error.message,stack)
+
+  return res.status(500).json({
+    status:'error',
+    message:'something went very wrong',
+  })
  
 };
 
