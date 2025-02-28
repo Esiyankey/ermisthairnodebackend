@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
       },
      length:{
-        type:Sequelize.NUMBER,
+        type:Sequelize.INTEGER,
         allowNull: false,
       },
       color:{

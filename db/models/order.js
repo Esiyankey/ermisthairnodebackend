@@ -1,5 +1,7 @@
 const sequelize = require('../../config/database');
 
+const Sequelize = require("sequelize")
+
 
 const order = sequelize.define('orders',{
   id: {
