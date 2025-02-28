@@ -1,4 +1,5 @@
 const catchAsync = require('../utils/catchAsync')
+
 const createOrder = catchAsync (async (req,res,next)=>{
     const body = req.body;
 
@@ -17,6 +18,8 @@ const createOrder = catchAsync (async (req,res,next)=>{
     })
     return res.status(201).json({
         status:'success',
-        data:newOrder
+        data: newOrder,
     })
 })
+
+module.exports = createOrder;
