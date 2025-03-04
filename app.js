@@ -1,4 +1,5 @@
 require('dotenv').config({path:`${process.cwd()}/.env`})
+const cors = require('cors')
 const express = require("express")
 
 
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 
+app.use(cors({origin: 'http://localhost:3000',credentials: true}))
 app.use('/api/v1/auth',authRouter)
 app.use('/api/v1/order',orderRouter)
 
