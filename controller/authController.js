@@ -57,6 +57,7 @@ const login = async (req, res, next) => {
   return res.json({
     status: "success",
     token,
+    user: { id: result.id, role: result.role, email: result.email }
   });
 };
 
@@ -66,10 +67,10 @@ const authentication = catchAsync(async (req, res, next) => {
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
-    idToken = req.headers.authorization.split("")[1];
+    idToken = req.headers.authorization.split(" ")[1];
   }
 
-  if (idToken) {
+  if (!idToken) {
     return next(new AppError("Pleae login to get access", 401));
   }
 
