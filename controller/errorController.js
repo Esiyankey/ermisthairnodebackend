@@ -31,6 +31,7 @@ const sendErrorProd = (error, res) => {
   return res.status(500).json({
     status:'error',
     message:'something went very wrong',
+    stack
   })
  
 };
