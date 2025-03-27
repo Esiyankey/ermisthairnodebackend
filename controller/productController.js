@@ -29,7 +29,7 @@ const addProduct = catchAsync(async (req,res)=>{
 
 
 const getAllProducts = catchAsync(async (req,res)=>{
-    const allProducts = await products.findAll();
+    const allProducts = await product.findAll();
     return res.status(200).json({
         status:"success",
         data:allProducts

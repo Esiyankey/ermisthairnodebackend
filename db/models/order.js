@@ -10,18 +10,6 @@ const order = sequelize.define('orders',{
     primaryKey: true,
     type: Sequelize.INTEGER
   },
-  wigName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate:{
-      notNull:{
-        msg:"wig name cannot be null",
-      },
-      notEmpty:{
-        msg:"wig name cannot be empty"
-      }
-    }
-  },
   customerName:{
     type:Sequelize.STRING,
     allowNull: false,
