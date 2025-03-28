@@ -2,11 +2,12 @@ const product = require("../db/models/product");
 const catchAsync = require("../utils/catchAsync");
 
 const addProduct = catchAsync(async (req,res)=>{
-    const {productName,productPrice,hairType,hairColor,hairLength} = req.body;
+    const {productName,category,productPrice,hairType,hairColor,hairLength} = req.body;
     const productImage = req.file ? req.file.path : null;
 
     const newProduct = await product.create({
         productName,
+        category,
         productPrice,
         hairType,
         hairColor,
