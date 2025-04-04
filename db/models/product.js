@@ -15,6 +15,9 @@ const product = sequelize.define("products",{
     type:DataTypes.UUID,
     defaultValue: uuidv4,
   },
+  category:{
+    type:Sequelize.STRING
+  },
   productImage:{
     type:Sequelize.STRING
   },

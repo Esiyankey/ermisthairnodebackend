@@ -1,3 +1,4 @@
+
 const product = require("../db/models/product");
 const catchAsync = require("../utils/catchAsync");
 
@@ -12,7 +13,7 @@ const addProduct = catchAsync(async (req,res)=>{
         hairType,
         hairColor,
         hairLength,
-        productImage
+        productImage,
     });
 
     if(!newProduct){
