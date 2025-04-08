@@ -1,10 +1,12 @@
 const order = require('../db/models/order');
+const product = require('../db/models/product');
 const catchAsync = require('../utils/catchAsync')
 
 const createOrder = catchAsync (async (req,res,next)=>{
     const body = req.body;
 
     const newOrder = await order.create({
+        productId:body.productId,
         wigName:body.wigName,
         customerName:body.customerName,
         location:body.location,
@@ -23,4 +25,13 @@ const createOrder = catchAsync (async (req,res,next)=>{
     })
 })
 
-module.exports = createOrder;
+
+const getAllOrders = catchAsync (async (req,res,next)=>{
+    const orders = await order.findAll()
+    return res.status(200).json({
+        status:'success',
+        data: orders,
+    })
+}
+)
+module.exports = createOrder, getAllOrders;

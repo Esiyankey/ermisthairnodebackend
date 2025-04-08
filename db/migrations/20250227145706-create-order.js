@@ -9,6 +9,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+       productId: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          references: {
+            model: products,
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL'
+        },
       wigName: {
         type: Sequelize.STRING,
         allowNull: false,

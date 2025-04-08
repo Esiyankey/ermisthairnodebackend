@@ -1,6 +1,7 @@
 const sequelize = require('../../config/database');
 
-const Sequelize = require("sequelize")
+const Sequelize = require("sequelize");
+const product = require('./product');
 
 
 const order = sequelize.define('orders',{
@@ -9,6 +10,16 @@ const order = sequelize.define('orders',{
     autoIncrement: true,
     primaryKey: true,
     type: Sequelize.INTEGER
+  },
+  productId: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    references: {
+      model: products,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   customerName:{
     type:Sequelize.STRING,
@@ -139,5 +150,10 @@ const order = sequelize.define('orders',{
     type: Sequelize.DATE
   }
 })
+
+order.belongsTo(product, {
+  foreignKey: 'productId',
+  as: 'product'
+});
 
 module.exports = order
